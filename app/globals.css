@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Mo AI — Apple-inspired design tokens
+   ============================================================ */
+@theme {
+  /* surfaces */
+  --color-void:      #000000;
+  --color-abyss:     #050505;
+  --color-obsidian:  #121214;
+  --color-slate-card:#1c1c1e;
+
+  /* type */
+  --color-ink:       #f5f5f7;
+  --color-muted:     #86868b;
+  --color-faint:     #5c5c61;
+
+  /* accents, sampled from the Mo AI mark */
+  --color-azure:     #0a84ff;  /* mid blue of the gradient */
+  --color-deep:      #0b57e0;  /* deep blue, bottom-left of the mark */
+  --color-cyan-ai:   #34d2f2;  /* bright cyan, the arrow */
+
+  /* fonts */
+  --font-display: var(--font-inter), -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+
+  /* motion */
+  --ease-apple: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--color-void);
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+  ::selection { background: rgba(10, 132, 255, 0.32); color: #fff; }
+  h1, h2, h3, h4 { letter-spacing: -0.03em; }
+}
+
+@layer utilities {
+  /* hairline border, Apple style */
+  .hairline { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08); }
+  .hairline-strong { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14); }
+
+  .text-balance { text-wrap: balance; }
+
+  /* iridescent text */
+  .grad-text {
+    background: linear-gradient(120deg, #34d2f2 0%, #0a84ff 46%, #0b57e0 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* tabular numbers for counters so they don't jitter */
+  .tnum { font-variant-numeric: tabular-nums; }
+
+  /* scrollbar */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { scrollbar-width: none; }
+}
+
+/* ambient drift for the CTA glow */
+@keyframes drift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33%      { transform: translate3d(4%, -3%, 0) scale(1.08); }
+  66%      { transform: translate3d(-3%, 3%, 0) scale(0.96); }
+}
+.animate-drift { animation: drift 18s var(--ease-apple) infinite; }
+
+@keyframes shimmer {
+  0%   { transform: translateX(-120%); }
+  100% { transform: translateX(320%); }
+}
+.animate-shimmer { animation: shimmer 2.6s var(--ease-apple) infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+}

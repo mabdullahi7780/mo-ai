@@ -171,10 +171,11 @@ export function CTA() {
                 </ul>
 
                 <div className="mt-9 flex flex-wrap gap-3">
-                  <Button href={CAL_URL} target="_blank" size="md" shimmer>
-                    Book on Cal.com
-                  </Button>
-                  <Button href={`mailto:${CONTACT_EMAIL}?subject=Mo%20AI%20consultation`} variant="secondary" size="md">
+                  <Button
+                    href={`mailto:${CONTACT_EMAIL}?subject=Mo%20AI%20consultation`}
+                    variant="secondary"
+                    size="md"
+                  >
                     Email us instead
                   </Button>
                 </div>

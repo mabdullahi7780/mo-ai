@@ -363,4 +363,4 @@ export const STACK = [
 
 export const CAL_LINK = "mabdullahi7780/mo-ai-consultation-call";
 export const CAL_URL = "https://cal.com/mabdullahi7780/mo-ai-consultation-call";
-export const CONTACT_EMAIL = "helloevolvv@gmail.com";
+export const CONTACT_EMAIL = "mabdullahi7780@gmail.com";

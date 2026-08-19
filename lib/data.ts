@@ -49,6 +49,17 @@ export const SERVICES = [
     body: "Lead capture, deduplication, deterministic scoring, AI enrichment and routing, all on a schema designed around your process instead of someone else's template. Two-way integrations between platforms that were never meant to talk.",
     bullets: ["Bespoke pipeline and stage design", "AI enrichment and lead scoring", "Two-way platform syncs", "Dashboards that report the truth"],
     span: "lg:col-span-4 lg:row-span-2",
+    feature: true,
+  },
+  {
+    id: "agents",
+    icon: "Bot",
+    eyebrow: "Autonomous AI Agents",
+    title: "Agents that call, answer, qualify and book.",
+    body: "Voice and chat agents running 24/7 across phone, WhatsApp, SMS and email in English and Dutch, with warm handoff to a human the moment it matters.",
+    bullets: ["Outbound calling and speed to lead", "Inbound receptionist and after hours", "WhatsApp and SMS assistants", "Warm transfer to a human"],
+    span: "lg:col-span-2 lg:row-span-2",
+    feature: false,
   },
   {
     id: "ghl",
@@ -57,16 +68,8 @@ export const SERVICES = [
     title: "GHL pushed past what the builder UI can do.",
     body: "Advanced snapshots, API triggers, custom webhook relays and workflow automation that survives contact with real volume.",
     bullets: ["Snapshot design and migration", "API triggers and webhook relays", "Multi-calendar routing"],
-    span: "lg:col-span-2",
-  },
-  {
-    id: "agents",
-    icon: "Bot",
-    eyebrow: "Autonomous AI Agents",
-    title: "Agents that call, answer, qualify and book.",
-    body: "Voice and chat agents running 24/7 across phone, WhatsApp, SMS and email in English and Dutch, with warm handoff to a human the moment it matters.",
-    bullets: ["Outbound calling and speed to lead", "Inbound receptionist and after hours", "WhatsApp and SMS assistants"],
-    span: "lg:col-span-2",
+    span: "lg:col-span-3",
+    feature: false,
   },
   {
     id: "web",
@@ -75,7 +78,8 @@ export const SERVICES = [
     title: "Interfaces that load instantly and convert.",
     body: "Landing pages, webinar funnels and product surfaces wired directly into the follow-up machine, so a new lead is being worked before the tab closes.",
     bullets: ["Landing pages and webinar funnels", "Conversion-wired forms", "Sub-second load targets"],
-    span: "lg:col-span-2",
+    span: "lg:col-span-3",
+    feature: false,
   },
 ] as const;
 

@@ -35,10 +35,10 @@ export function Services() {
           </p>
         </Reveal>
 
-        <div className="mt-14 grid grid-cols-1 gap-4 lg:grid-cols-6">
+        <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6 lg:auto-rows-fr">
           {SERVICES.map((s, i) => {
             const Icon = ICONS[s.icon];
-            const isFeature = s.span.includes("row-span-2");
+            const isFeature = s.feature;
             return (
               <Reveal key={s.id} delay={i * 0.08} className={s.span}>
                 <SpotlightCard className="flex h-full flex-col p-8 sm:p-9">

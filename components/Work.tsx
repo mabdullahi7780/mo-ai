@@ -62,7 +62,7 @@ export function Work() {
           </p>
         </Reveal>
 
-        <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6">
+        <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6 lg:auto-rows-fr">
           {CASES.map((c, i) => (
             <Reveal key={c.id} delay={Math.min(i * 0.06, 0.36)} className={c.span}>
               <SpotlightCard
@@ -76,33 +76,18 @@ export function Work() {
                   <span className="shrink-0 text-[12px] text-faint">{c.geo}</span>
                 </div>
 
-                <h3
-                  className={cn(
-                    "mt-6 font-semibold leading-[1.15] tracking-[-0.025em] text-ink",
-                    c.featured ? "text-[clamp(1.5rem,2.4vw,1.95rem)]" : "text-[1.25rem]"
-                  )}
-                >
+                <h3 className="mt-6 text-[1.42rem] font-semibold leading-[1.2] tracking-[-0.024em] text-ink">
                   {c.name}
                 </h3>
                 <p className="mt-1.5 text-[13px] text-faint">{c.industry}</p>
-                <p
-                  className={cn(
-                    "mt-4 leading-[1.65] text-muted",
-                    c.featured ? "text-[15.5px]" : "text-[14px]"
-                  )}
-                >
+                <p className="mt-4 text-[14.5px] leading-[1.65] text-muted">
                   {c.summary}
                 </p>
 
                 <div className="mt-auto grid grid-cols-2 gap-x-6 gap-y-5 border-t border-white/[0.07] pt-7">
                   {c.metrics.map((m) => (
                     <div key={m.label}>
-                      <div
-                        className={cn(
-                          "font-semibold leading-none tracking-[-0.03em] text-ink",
-                          c.featured ? "text-[1.6rem]" : "text-[1.3rem]"
-                        )}
-                      >
+                      <div className="text-[1.45rem] font-semibold leading-none tracking-[-0.03em] text-ink">
                         {m.value}
                       </div>
                       <div className="mt-1.5 text-[12px] leading-snug text-faint">

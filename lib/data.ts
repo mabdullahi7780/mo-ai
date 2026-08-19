@@ -45,41 +45,57 @@ export const SERVICES = [
     id: "crm",
     icon: "Database",
     eyebrow: "Custom CRM Architecture",
-    title: "Data pipelines and business logic built for how you actually work.",
-    body: "Lead capture, deduplication, deterministic scoring, AI enrichment and routing, all on a schema designed around your process instead of someone else's template. Two-way integrations between platforms that were never meant to talk.",
-    bullets: ["Bespoke pipeline and stage design", "AI enrichment and lead scoring", "Two-way platform syncs", "Dashboards that report the truth"],
-    span: "lg:col-span-4 lg:row-span-2",
-    feature: true,
-  },
-  {
-    id: "agents",
-    icon: "Bot",
-    eyebrow: "Autonomous AI Agents",
-    title: "Agents that call, answer, qualify and book.",
-    body: "Voice and chat agents running 24/7 across phone, WhatsApp, SMS and email in English and Dutch, with warm handoff to a human the moment it matters.",
-    bullets: ["Outbound calling and speed to lead", "Inbound receptionist and after hours", "WhatsApp and SMS assistants", "Warm transfer to a human"],
-    span: "lg:col-span-2 lg:row-span-2",
-    feature: false,
+    title: "Data pipelines built for how you actually work.",
+    body: "Lead capture, deduplication, scoring, AI enrichment and routing, on a schema designed around your process instead of someone else's template.",
+    bullets: [
+      "Bespoke pipeline and stage design",
+      "AI enrichment and lead scoring",
+      "Two-way platform syncs",
+      "Dashboards that report the truth",
+    ],
+    span: "lg:col-span-3",
   },
   {
     id: "ghl",
     icon: "Workflow",
     eyebrow: "GoHighLevel Engineering",
     title: "GHL pushed past what the builder UI can do.",
-    body: "Advanced snapshots, API triggers, custom webhook relays and workflow automation that survives contact with real volume.",
-    bullets: ["Snapshot design and migration", "API triggers and webhook relays", "Multi-calendar routing"],
+    body: "Advanced snapshots, API triggers and custom webhook relays, built to survive contact with real volume rather than a demo account.",
+    bullets: [
+      "Snapshot design and migration",
+      "API triggers and webhook relays",
+      "Multi-calendar and territory routing",
+      "Workflow automation at real volume",
+    ],
     span: "lg:col-span-3",
-    feature: false,
+  },
+  {
+    id: "agents",
+    icon: "Bot",
+    eyebrow: "Autonomous AI Agents",
+    title: "Agents that call, answer, qualify and book.",
+    body: "Voice and chat agents running around the clock across phone, WhatsApp, SMS and email, in English and Dutch, handing off to a human when it matters.",
+    bullets: [
+      "Outbound calling and speed to lead",
+      "Inbound receptionist and after hours",
+      "WhatsApp and SMS booking assistants",
+      "Warm transfer to a human",
+    ],
+    span: "lg:col-span-3",
   },
   {
     id: "web",
     icon: "Zap",
     eyebrow: "Modern Web Engineering",
     title: "Interfaces that load instantly and convert.",
-    body: "Landing pages, webinar funnels and product surfaces wired directly into the follow-up machine, so a new lead is being worked before the tab closes.",
-    bullets: ["Landing pages and webinar funnels", "Conversion-wired forms", "Sub-second load targets"],
+    body: "Landing pages, webinar funnels and product surfaces, wired into the follow-up machine so a new lead is being worked before the tab closes.",
+    bullets: [
+      "Landing pages and webinar funnels",
+      "Conversion-wired forms and tracking",
+      "Sub-second load targets",
+      "Piped straight into your CRM",
+    ],
     span: "lg:col-span-3",
-    feature: false,
   },
 ] as const;
 
@@ -132,7 +148,6 @@ export type CaseStudy = {
   built: string[];
   outcome: string;
   span: string;
-  featured?: boolean;
 };
 
 export const CASES: CaseStudy[] = [
@@ -142,8 +157,7 @@ export const CASES: CaseStudy[] = [
     industry: "Development finance brokerage",
     geo: "Sydney, Australia",
     status: "live",
-    featured: true,
-    span: "lg:col-span-3 lg:row-span-2",
+    span: "lg:col-span-3",
     summary:
       "An eight-stage AI business development pipeline that finds property developers, works out who they are, contacts them, and hands the interested ones to the broker. It runs every day on its own.",
     metrics: [
@@ -172,8 +186,7 @@ export const CASES: CaseStudy[] = [
     industry: "Facial recognition access control",
     geo: "United States",
     status: "live",
-    featured: true,
-    span: "lg:col-span-3 lg:row-span-2",
+    span: "lg:col-span-3",
     summary:
       "An AI cold caller that phones property management companies across the US, qualifies them against the ideal customer profile, and books demos into the sales director's calendar.",
     metrics: [
@@ -201,7 +214,7 @@ export const CASES: CaseStudy[] = [
     industry: "Roofing and inspections",
     geo: "Netherlands",
     status: "live",
-    span: "lg:col-span-2",
+    span: "lg:col-span-3",
     summary:
       "A Dutch speaking AI that handles new roof inspection requests over both phone and WhatsApp, then books the right inspector based on who is closest and who is free.",
     metrics: [
@@ -229,7 +242,7 @@ export const CASES: CaseStudy[] = [
     industry: "Field service software",
     geo: "Netherlands",
     status: "live",
-    span: "lg:col-span-2",
+    span: "lg:col-span-3",
     summary:
       "A Dutch voice agent that calls homeowners to schedule installations, backed by an engine that picks the crew who has to drive the least. Two other AI vendors tried this and could not ship it.",
     metrics: [
@@ -256,7 +269,7 @@ export const CASES: CaseStudy[] = [
     industry: "Boutique fitness",
     geo: "United States",
     status: "live",
-    span: "lg:col-span-2",
+    span: "lg:col-span-3",
     summary:
       "Two booking systems that were never designed to talk, kept in sync both ways, with a hard guarantee that two clients can never land on one trainer.",
     metrics: [
@@ -283,7 +296,7 @@ export const CASES: CaseStudy[] = [
     industry: "Animal rescue and rehoming",
     geo: "Netherlands",
     status: "live",
-    span: "lg:col-span-2",
+    span: "lg:col-span-3",
     summary:
       "Seven separate Dutch voice agents, one for each kind of call a rescue centre gets, all on a single shared backend.",
     metrics: [
@@ -310,7 +323,7 @@ export const CASES: CaseStudy[] = [
     industry: "Stone fabrication",
     geo: "Denver, United States",
     status: "live",
-    span: "lg:col-span-2",
+    span: "lg:col-span-3",
     summary:
       "An AI receptionist that answers the phone, transfers to whoever is on duty during business hours, and runs the front desk after hours.",
     metrics: [
@@ -336,7 +349,7 @@ export const CASES: CaseStudy[] = [
     industry: "Home and ADU construction",
     geo: "United States",
     status: "build",
-    span: "lg:col-span-2",
+    span: "lg:col-span-3",
     summary:
       "An education-led acquisition system for a builder with a six figure average project value, replacing a decaying bottom-of-funnel ad campaign.",
     metrics: [

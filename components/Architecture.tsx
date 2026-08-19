@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Bot, CalendarCheck, Database, Globe, type LucideIcon } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
@@ -9,10 +9,34 @@ import { cn } from "@/lib/cn";
 
 const ICONS: Record<string, LucideIcon> = { Globe, Database, Bot, CalendarCheck };
 
+/** How long each layer holds before advancing. */
+const AUTO_MS = 10_000;
+
 export function Architecture() {
   const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
   const reduce = useReducedMotion();
   const step = FLOW[active];
+
+  // Pause only for a reader who is hovering or tabbing through the panel, and
+  // for anyone who asked for reduced motion. An earlier version also gated on
+  // an IntersectionObserver so the cycle would begin at layer 01, but that made
+  // the whole carousel dependent on a callback that never arrives in a
+  // throttled tab, and it silently never ran.
+  const running = !paused && !reduce;
+
+  // Keyed on `active`, so selecting a layer by hand restarts the countdown
+  // rather than advancing a moment later.
+  useEffect(() => {
+    if (!running) return;
+    const t = window.setTimeout(
+      () => setActive((a) => (a + 1) % FLOW.length),
+      AUTO_MS
+    );
+    return () => window.clearTimeout(t);
+  }, [active, running]);
+
+  const select = useCallback((i: number) => setActive(i), []);
 
   return (
     <section id="architecture" className="relative py-24 sm:py-32">
@@ -34,13 +58,19 @@ export function Architecture() {
         </Reveal>
         <Reveal delay={0.1}>
           <p className="mt-5 max-w-[52ch] text-[17px] leading-relaxed text-muted">
-            The same four layers sit under nearly every system we ship. Select a
-            layer to see what happens inside it.
+            The same four layers sit under nearly every system we ship. It walks
+            itself through them, or select a layer to jump straight there.
           </p>
         </Reveal>
 
         <Reveal delay={0.14}>
-          <div className="mt-14 rounded-[32px] bg-obsidian p-6 ring-1 ring-white/10 sm:p-10">
+          <div
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+            onFocusCapture={() => setPaused(true)}
+            onBlurCapture={() => setPaused(false)}
+            className="mt-14 rounded-[32px] bg-obsidian p-6 ring-1 ring-white/10 sm:p-10"
+          >
             {/* the rail */}
             <div className="relative">
               <div
@@ -61,13 +91,14 @@ export function Architecture() {
                   return (
                     <button
                       key={f.id}
-                      onClick={() => setActive(i)}
+                      onClick={() => select(i)}
                       aria-pressed={on}
+                      aria-label={`Layer ${i + 1}, ${f.label}`}
                       className="group/step relative flex items-center gap-4 rounded-2xl p-3 text-left transition-colors duration-300 hover:bg-white/[0.04] md:flex-col md:items-start md:gap-0 md:bg-transparent md:p-0 md:hover:bg-transparent"
                     >
                       <span
                         className={cn(
-                          "relative z-10 grid h-[52px] w-[52px] shrink-0 place-items-center rounded-2xl ring-1 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] md:h-13 md:w-13",
+                          "relative z-10 grid h-[52px] w-[52px] shrink-0 place-items-center rounded-2xl ring-1 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
                           on
                             ? "bg-gradient-to-br from-cyan-ai/25 to-azure/15 ring-azure/45 shadow-[0_0_0_6px_rgba(10,132,255,0.10)]"
                             : "bg-white/[0.05] ring-white/10 group-hover/step:ring-white/25"
@@ -102,33 +133,48 @@ export function Architecture() {
             </div>
 
             {/* detail panel */}
-            <div className="mt-9 min-h-[188px] rounded-3xl bg-abyss p-7 ring-1 ring-white/[0.07] sm:p-8">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={step.id}
-                  initial={reduce ? false : { opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={reduce ? undefined : { opacity: 0, y: -10 }}
-                  transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  <h3 className="text-[1.3rem] font-semibold tracking-[-0.022em] text-ink">
-                    {step.label}
-                  </h3>
-                  <p className="mt-3 max-w-[70ch] text-[15.5px] leading-[1.7] text-muted">
-                    {step.detail}
-                  </p>
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {step.stack.map((s) => (
-                      <span
-                        key={s}
-                        className="rounded-full bg-white/[0.05] px-3.5 py-1.5 text-[12.5px] text-muted ring-1 ring-white/10"
-                      >
-                        {s}
-                      </span>
-                    ))}
-                  </div>
-                </motion.div>
-              </AnimatePresence>
+            <div className="mt-9 overflow-hidden rounded-3xl bg-abyss ring-1 ring-white/[0.07]">
+              {/* countdown to the next layer */}
+              <div aria-hidden className="h-[2px] w-full bg-white/[0.06]">
+                {running && (
+                  <motion.div
+                    key={active}
+                    className="h-full origin-left bg-gradient-to-r from-cyan-ai to-azure"
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{ duration: AUTO_MS / 1000, ease: "linear" }}
+                  />
+                )}
+              </div>
+
+              <div className="min-h-[188px] p-7 sm:p-8">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={step.id}
+                    initial={reduce ? false : { opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={reduce ? undefined : { opacity: 0, y: -10 }}
+                    transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    <h3 className="text-[1.3rem] font-semibold tracking-[-0.022em] text-ink">
+                      {step.label}
+                    </h3>
+                    <p className="mt-3 max-w-[70ch] text-[15.5px] leading-[1.7] text-muted">
+                      {step.detail}
+                    </p>
+                    <div className="mt-6 flex flex-wrap gap-2">
+                      {step.stack.map((s) => (
+                        <span
+                          key={s}
+                          className="rounded-full bg-white/[0.05] px-3.5 py-1.5 text-[12.5px] text-muted ring-1 ring-white/10"
+                        >
+                          {s}
+                        </span>
+                      ))}
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
             </div>
           </div>
         </Reveal>

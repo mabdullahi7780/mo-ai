@@ -38,7 +38,6 @@ export function Services() {
         <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6 lg:auto-rows-fr">
           {SERVICES.map((s, i) => {
             const Icon = ICONS[s.icon];
-            const isFeature = s.feature;
             return (
               <Reveal key={s.id} delay={i * 0.08} className={s.span}>
                 <SpotlightCard className="flex h-full flex-col p-8 sm:p-9">
@@ -49,13 +48,7 @@ export function Services() {
                   <p className="text-[12px] font-semibold uppercase tracking-[0.13em] text-azure">
                     {s.eyebrow}
                   </p>
-                  <h3
-                    className={
-                      isFeature
-                        ? "mt-3 text-balance text-[clamp(1.5rem,2.5vw,2rem)] font-semibold leading-[1.15] tracking-[-0.025em] text-ink"
-                        : "mt-3 text-balance text-[1.28rem] font-semibold leading-[1.2] tracking-[-0.022em] text-ink"
-                    }
-                  >
+                  <h3 className="mt-3 text-balance text-[1.42rem] font-semibold leading-[1.2] tracking-[-0.024em] text-ink">
                     {s.title}
                   </h3>
                   <p className="mt-4 text-[15px] leading-[1.65] text-muted">{s.body}</p>

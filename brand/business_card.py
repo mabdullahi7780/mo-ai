@@ -33,8 +33,8 @@ AZURE = HexColor("#0A84FF")
 BG = HexColor("#050507")
 HAIRLINE = Color(1, 1, 1, alpha=0.16)
 
-SITE_URL = "https://mo-ai-omega.vercel.app"
-SITE_LABEL = "mo-ai-omega.vercel.app"
+SITE_URL = "https://mo-ai-agency.vercel.app"
+SITE_LABEL = "mo-ai-agency.vercel.app"
 WHATSAPP = "+1 (361) 633-2217"
 EMAIL = "mabdullahi7780@gmail.com"
 

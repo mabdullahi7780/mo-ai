@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     ],
     apple: [{ url: "/apple-icon.png", sizes: "180x180" }],
   },
-  metadataBase: new URL("https://mo-ai-omega.vercel.app"),
+  metadataBase: new URL("https://mo-ai-agency.vercel.app"),
 };
 
 export const viewport: Viewport = {
